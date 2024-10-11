@@ -540,13 +540,6 @@ $(document).ready(function(){
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#matplotlib-figure-tests" class="md-nav__link">
-    <span class="md-ellipsis">Matplotlib figure tests</span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#debugging-when-using-coverage" class="md-nav__link">
     <span class="md-ellipsis">Debugging when using coverage</span>
   </a>
@@ -748,34 +741,37 @@ lines from the report depending:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>$<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>./run_tests.sh
 </code></pre></div>
 </div>
-<h3 id="matplotlib-figure-tests">Matplotlib figure tests<a class="headerlink" href="#matplotlib-figure-tests" title="Link to this heading">¶</a></h3>
-<p>ETSpy uses the <a class="reference external" href="https://pytest-mpl.readthedocs.io/"><code class="docutils literal notranslate"><span class="pre">pytest-mpl</span></code></a> pytest
-plugin to compare the outputs of certain tests to a “baseline” reference
+<!-- ### Matplotlib figure tests
+
+ETSpy uses the [`pytest-mpl`](https://pytest-mpl.readthedocs.io/) pytest
+plugin to compare the outputs of certain tests to a "baseline" reference
 to see if the output of the figure has changed since what was expected.
-This is configured under the <code class="docutils literal notranslate"><span class="pre">[tool.pytest.ini_options]</span></code> of the
-<code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file, so these tests should run automatically when
+This is configured under the `[tool.pytest.ini_options]` of the
+`pyproject.toml` file, so these tests should run automatically when
 using the above commands, but you will have to run a separate command
-the first time you write a test that checks a figure’s output
+the first time you write a test that checks a figure's output
 (or if a method has changed such that a new baseline image is required).
-First, follow the plugin’s
-<a class="reference external" href="https://pytest-mpl.readthedocs.io/en/latest/usage.html">docs</a> for
-writing tests (use the <code class="docutils literal notranslate"><span class="pre">mpl_image_compare</span></code> marker and make sure the
-test returns a Matplotlib <code class="docutils literal notranslate"><span class="pre">Figure</span></code>; it’s also recommended to use the
-<code class="docutils literal notranslate"><span class="pre">remove_text=True</span></code> option to prevent issues between different versions
+First, follow the plugin's
+[docs](https://pytest-mpl.readthedocs.io/en/latest/usage.html) for
+writing tests (use the `mpl_image_compare` marker and make sure the
+test returns a Matplotlib `Figure`; it's also recommended to use the
+`remove_text=True` option to prevent issues between different versions
 of the freetype library). Then, the first time you run
 the test, you will need to generate the baseline images that will
-be used to compare against on subsequent runs. To do so, run <code class="docutils literal notranslate"><span class="pre">pytest</span></code>
-with the <code class="docutils literal notranslate"><span class="pre">--mpl-generate-path=etspy/tests/test_data/pytest_mpl_figures</span></code>
-option (the <code class="docutils literal notranslate"><span class="pre">-m</span> <span class="pre">&quot;mpl_image_compare&quot;</span></code> flag limits pytest to only
-run the tests that involve figures, and the <code class="docutils literal notranslate"><span class="pre">--no-cov</span></code> flag
-disables coverage for this run, since it’s not relevant):</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>$<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;mpl_image_compare&quot;</span><span class="w"> </span>--mpl-generate-path<span class="o">=</span>etspy/tests/test_data/pytest_mpl_figures<span class="w"> </span>--no-cov
-</code></pre></div>
-</div>
-<p>This will run through the test suite, saving any figures that are
-required for the <code class="docutils literal notranslate"><span class="pre">pytest-mpl</span></code> tests. Make sure to commit these images
+be used to compare against on subsequent runs. To do so, run `pytest`
+with the `--mpl-generate-path=etspy/tests/test_data/pytest_mpl_figures`
+option (the `-m "mpl_image_compare"` flag limits pytest to only
+run the tests that involve figures, and the `--no-cov` flag
+disables coverage for this run, since it's not relevant):
+
+```shell
+$ poetry run pytest -m "mpl_image_compare" --mpl-generate-path=etspy/tests/test_data/pytest_mpl_figures --no-cov
+```
+
+This will run through the test suite, saving any figures that are
+required for the `pytest-mpl` tests. Make sure to commit these images
 to the repository, as they become part of the test suite and will
-be referenced the next time you use <code class="docutils literal notranslate"><span class="pre">./run_tests.sh</span></code>.</p>
+be referenced the next time you use `./run_tests.sh`. -->
 <h3 id="debugging-when-using-coverage">Debugging when using coverage<a class="headerlink" href="#debugging-when-using-coverage" title="Link to this heading">¶</a></h3>
 <p>ETSpy has the test suite configured to automatically run code coverage
 analysis when using <code class="docutils literal notranslate"><span class="pre">pytest</span></code>. This interferes when using interactive
@@ -808,7 +804,7 @@ when running “Debug test” via the <code class="docutils literal notranslate"
 <li><p><a class="reference external" href="https://hyperspy.org/">https://hyperspy.org/</a></p></li>
 <li><p><a class="reference external" href="https://astra-toolbox.com/">https://astra-toolbox.com/</a></p></li>
 </ul>
-<p><em>Documentation last generated:</em> October 11, 2024 at 03:04 PM</p>
+<p><em>Documentation last generated:</em> October 11, 2024 at 03:10 PM</p>
 
 
 
