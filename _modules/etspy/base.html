@@ -1196,12 +1196,14 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="TomoStack.stack_register">
 <a class="viewcode-back" href="../../api/etspy.base.TomoStack.stack_register.html#etspy.base.TomoStack.stack_register">[docs]</a>
-    <span class="k">def</span> <span class="nf">stack_register</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">stack_register</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">method</span><span class="p">:</span> <span class="n">AlignmentMethodType</span> <span class="o">=</span> <span class="n">AlignmentMethod</span><span class="o">.</span><span class="n">PC</span><span class="p">,</span>
         <span class="n">start</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">show_progressbar</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">crop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">xrange</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">p</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
         <span class="n">nslices</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
         <span class="n">com_ref_index</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">cl_ref_index</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1229,6 +1231,14 @@ $(document).ready(function(){
 <span class="sd">        crop</span>
 <span class="sd">            If True, crop aligned stack to eliminate border pixels. Default is</span>
 <span class="sd">            False.</span>
+<span class="sd">        xrange</span>
+<span class="sd">            (Only used when ``method ==``:py:attr:`~etspy.AlignmentMethod.COM`)</span>
+<span class="sd">            The range for performing alignment. See</span>
+<span class="sd">            :py:func:`~etspy.align.calculate_shifts_com` for more details.</span>
+<span class="sd">        p</span>
+<span class="sd">            (Only used when ``method ==``:py:attr:`~etspy.AlignmentMethod.COM`)</span>
+<span class="sd">            Padding element. See :py:func:`~etspy.align.calculate_shifts_com` for more</span>
+<span class="sd">            details.</span>
 <span class="sd">        nslices</span>
 <span class="sd">            (Only used when ``method ==``:py:attr:`~etspy.AlignmentMethod.COM`)</span>
 <span class="sd">            Number of slices to return. See</span>
@@ -1291,6 +1301,8 @@ $(document).ready(function(){
                 <span class="n">method</span><span class="p">,</span>
                 <span class="n">start</span><span class="p">,</span>
                 <span class="n">show_progressbar</span><span class="p">,</span>
+                <span class="n">xrange</span><span class="o">=</span><span class="n">xrange</span><span class="p">,</span>
+                <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">,</span>
                 <span class="n">nslices</span><span class="o">=</span><span class="n">nslices</span><span class="p">,</span>
                 <span class="n">com_ref_index</span><span class="o">=</span><span class="n">com_ref_index</span><span class="p">,</span>
                 <span class="n">cl_ref_index</span><span class="o">=</span><span class="n">cl_ref_index</span><span class="p">,</span>

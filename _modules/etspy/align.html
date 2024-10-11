@@ -490,7 +490,7 @@ $(document).ready(function(){
 <span class="kn">from</span> <span class="nn">etspy</span> <span class="kn">import</span> <span class="n">AlignmentMethod</span><span class="p">,</span> <span class="n">AlignmentMethodType</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">etspy.base</span> <span class="kn">import</span> <span class="n">TomoStack</span>
+    <span class="kn">from</span> <span class="nn">etspy.base</span> <span class="kn">import</span> <span class="n">TomoStack</span>  <span class="c1"># pragma: no cover</span>
 
 <span class="n">has_cupy</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">try</span><span class="p">:</span>
@@ -853,6 +853,7 @@ $(document).ready(function(){
     <span class="n">upsample_factor</span><span class="p">,</span>
     <span class="n">axis_offsets</span><span class="p">,</span>
 <span class="p">):</span>
+    <span class="c1"># missing coverage because of CUDA</span>
     <span class="n">upsampled_region_size</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">upsampled_region_size</span><span class="p">,</span>
     <span class="p">]</span> <span class="o">*</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span>
@@ -874,6 +875,7 @@ $(document).ready(function(){
 
 
 <span class="k">def</span> <span class="nf">_cupy_phase_correlate</span><span class="p">(</span><span class="n">ref_cp</span><span class="p">,</span> <span class="n">mov_cp</span><span class="p">,</span> <span class="n">upsample_factor</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
+    <span class="c1"># missing coverage b/c of CUDA</span>
     <span class="n">ref_fft</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftn</span><span class="p">(</span><span class="n">ref_cp</span><span class="p">)</span>
     <span class="n">mov_fft</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftn</span><span class="p">(</span><span class="n">mov_cp</span><span class="p">)</span>
 
@@ -1022,7 +1024,7 @@ $(document).ready(function(){
 <a class="viewcode-back" href="../../api/etspy.align.calculate_shifts_stackreg.html#etspy.align.calculate_shifts_stackreg">[docs]</a>
 <span class="k">def</span> <span class="nf">calculate_shifts_stackreg</span><span class="p">(</span>
     <span class="n">stack</span><span class="p">:</span> <span class="s2">&quot;TomoStack&quot;</span><span class="p">,</span>
-    <span class="n">start</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">start</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="n">show_progressbar</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1033,7 +1035,8 @@ $(document).ready(function(){
 <span class="sd">    stack</span>
 <span class="sd">        The image series to be aligned</span>
 <span class="sd">    start</span>
-<span class="sd">        Position in tilt series to use as starting point for the alignment.</span>
+<span class="sd">        Position in tilt series to use as starting point for the alignment. If ``None``,</span>
+<span class="sd">        the slice closest to the midpoint will be used.</span>
 <span class="sd">    show_progressbar</span>
 <span class="sd">        Enable/disable progress bar</span>
 
@@ -1050,6 +1053,7 @@ $(document).ready(function(){
 
     <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">start</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span>  <span class="c1"># Use the midpoint if start is not provided</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span>
 
     <span class="c1"># Initialize pystackreg object with TranslationTransform2D</span>
     <span class="n">reg</span> <span class="o">=</span> <span class="n">StackReg</span><span class="p">(</span><span class="n">StackReg</span><span class="o">.</span><span class="n">TRANSLATION</span><span class="p">)</span>
@@ -1272,7 +1276,7 @@ $(document).ready(function(){
         <span class="n">shifts</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">calculate_shifts_com</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">nslices</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="n">AlignmentMethod</span><span class="o">.</span><span class="n">PC</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">cuda</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>  <span class="c1"># pragma: no cover</span>
                 <span class="s2">&quot;Performing stack registration using &quot;</span>
                 <span class="s2">&quot;CUDA-accelerated phase correlation&quot;</span><span class="p">,</span>
             <span class="p">)</span>
