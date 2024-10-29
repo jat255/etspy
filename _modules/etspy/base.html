@@ -2173,7 +2173,7 @@ $(document).ready(function(){
             <span class="p">)</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">cuda</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">astra</span><span class="o">.</span><span class="n">use_cuda</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">astra</span><span class="o">.</span><span class="n">use_cuda</span><span class="p">():</span>  <span class="c1"># coverage: nocuda</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;CUDA detected with Astra&quot;</span><span class="p">)</span>
                 <span class="n">cuda</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">else</span><span class="p">:</span>
@@ -2295,7 +2295,7 @@ $(document).ready(function(){
 
         <span class="n">cast</span><span class="p">(</span><span class="n">Uda</span><span class="p">,</span> <span class="n">shifted</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Uda</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">axis</span>
         <span class="k">if</span> <span class="n">cuda</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">astra</span><span class="o">.</span><span class="n">use_cuda</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">astra</span><span class="o">.</span><span class="n">use_cuda</span><span class="p">():</span>  <span class="c1"># coverage: nocuda</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;CUDA detected with Astra&quot;</span><span class="p">)</span>
                 <span class="n">cuda</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">else</span><span class="p">:</span>
@@ -2516,7 +2516,7 @@ $(document).ready(function(){
             <span class="n">nslice</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">cuda</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">astra</span><span class="o">.</span><span class="n">use_cuda</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">astra</span><span class="o">.</span><span class="n">use_cuda</span><span class="p">():</span>  <span class="c1"># coverage: nocuda</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;CUDA detected with Astra&quot;</span><span class="p">)</span>
                 <span class="n">cuda</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">else</span><span class="p">:</span>

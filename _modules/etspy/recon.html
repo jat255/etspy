@@ -755,7 +755,7 @@ $(document).ready(function(){
     <span class="n">cfg</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;option&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">if</span> <span class="n">cuda</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">cuda</span><span class="p">:</span>  <span class="c1"># coverage: nocuda</span>
         <span class="k">if</span> <span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;fbp&quot;</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Reconstructing with CUDA-accelerated FBP algorithm&quot;</span><span class="p">)</span>
             <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;FBP_CUDA&quot;</span>
@@ -1027,7 +1027,7 @@ $(document).ready(function(){
     <span class="n">rec_id</span> <span class="o">=</span> <span class="n">astra</span><span class="o">.</span><span class="n">data2d</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;-vol&quot;</span><span class="p">,</span> <span class="n">vol_geom</span><span class="p">)</span>
     <span class="n">sino_id</span> <span class="o">=</span> <span class="n">astra</span><span class="o">.</span><span class="n">data2d</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;-sino&quot;</span><span class="p">,</span> <span class="n">proj_geom</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">nangles</span><span class="p">,</span> <span class="n">ny</span><span class="p">]))</span>
 
-    <span class="k">if</span> <span class="n">cuda</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">cuda</span><span class="p">:</span>  <span class="c1"># coverage: nocuda</span>
         <span class="n">alg_name</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;_CUDA&quot;</span>
         <span class="n">proj_id</span> <span class="o">=</span> <span class="n">astra</span><span class="o">.</span><span class="n">create_projector</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">proj_geom</span><span class="p">,</span> <span class="n">vol_geom</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -1052,7 +1052,7 @@ $(document).ready(function(){
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">)):</span>
         <span class="n">astra</span><span class="o">.</span><span class="n">algorithm</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">alg</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">rec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">astra</span><span class="o">.</span><span class="n">data2d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">rec_id</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">cuda</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cuda</span><span class="p">:</span>  <span class="c1"># coverage: nocuda</span>
             <span class="n">residual_error</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">astra</span><span class="o">.</span><span class="n">algorithm</span><span class="o">.</span><span class="n">get_res_norm</span><span class="p">(</span><span class="n">alg</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">curr_id</span><span class="p">,</span> <span class="n">curr</span> <span class="o">=</span> <span class="n">astra</span><span class="o">.</span><span class="n">create_sino</span><span class="p">(</span><span class="n">rec</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">proj_id</span><span class="p">)</span>
