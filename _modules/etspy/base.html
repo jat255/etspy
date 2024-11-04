@@ -2654,17 +2654,15 @@ $(document).ready(function(){
 <a class="viewcode-back" href="../../api/etspy.base.TomoStack.extract_sinogram.html#etspy.base.TomoStack.extract_sinogram">[docs]</a>
     <span class="k">def</span> <span class="nf">extract_sinogram</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">column</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">row</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">column</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>  <span class="c1"># noqa: PYI041</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Signal2D</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Extract a sinogram from a single row or column of the TomoStack.</span>
+<span class="sd">        Extract a sinogram from a single column of the TomoStack.</span>
 
-<span class="sd">        Exactly one of either &quot;column&quot; (x-axis location) or &quot;row&quot; (y-axis</span>
-<span class="sd">        location) must be provided. The value to use can be supplied as either</span>
+<span class="sd">        The value to use for ``column`` can be supplied as either</span>
 <span class="sd">        an integer for pixel-based indexing, or as a float for unit-based</span>
 <span class="sd">        indexing. The resulting image will have the stack&#39;s projection axis</span>
-<span class="sd">        oriented vertically and the opposite axis horizontally.</span>
+<span class="sd">        oriented vertically and the y-axis horizontally.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2672,51 +2670,36 @@ $(document).ready(function(){
 <span class="sd">            The x-axis position to use for computing the sinogram. If an integer,</span>
 <span class="sd">            pixel-basd indexing will be used. If a float, unit-based indexing will</span>
 <span class="sd">            be used.</span>
-<span class="sd">        row</span>
-<span class="sd">            The y-axis position to use for computing the sinogram. If an integer,</span>
-<span class="sd">            pixel-basd indexing will be used. If a float, unit-based indexing will</span>
-<span class="sd">            be used.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        sino : Signal2D</span>
-<span class="sd">            A single image representing the row or column data over the range of</span>
+<span class="sd">            A single image representing the single column data over the range of</span>
 <span class="sd">            projections in the original TomoStack.</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
-<span class="sd">        ValueError</span>
-<span class="sd">            Raised if both column and row arguments are provided, or if neither</span>
-<span class="sd">            are provided.</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            Raised if column is neither a float or int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">column</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">row</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Only one of &quot;column&quot; or &quot;row&quot; may be provided.&#39;</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">column</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">row</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;One of &quot;column&quot; or &quot;row&quot; must be provided.&#39;</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s1">&#39;&quot;column&quot; argument must be either a float or an integer &#39;</span>
+                <span class="sa">f</span><span class="s2">&quot;(was </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">column</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span>
+            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
         <span class="c1"># hide isig warning from TomoStackSlicer</span>
         <span class="n">orig_logger_state</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">disabled</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">sino</span> <span class="o">=</span> <span class="bp">self</span>
-            <span class="k">if</span> <span class="n">row</span><span class="p">:</span>
-                <span class="n">sino</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">isig</span><span class="p">[:,</span> <span class="n">row</span><span class="p">]</span>
-                <span class="n">sino</span><span class="o">.</span><span class="n">set_signal_type</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-                <span class="n">sino</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Signal2D</span><span class="p">,</span> <span class="n">sino</span><span class="o">.</span><span class="n">as_signal2D</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
-                    <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Sinogram at y = </span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">units</span><span class="si">}</span><span class="s2">&quot;</span> <span class="c1"># type: ignore</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Sinogram at row </span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">sino</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">isig</span><span class="p">[</span><span class="n">column</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="n">sino</span><span class="o">.</span><span class="n">set_signal_type</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">sino</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Signal2D</span><span class="p">,</span> <span class="n">sino</span><span class="o">.</span><span class="n">as_signal2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Sinogram at x = </span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">units</span><span class="si">}</span><span class="s2">&quot;</span> <span class="c1"># type: ignore</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">sino</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">isig</span><span class="p">[</span><span class="n">column</span><span class="p">,</span> <span class="p">:]</span>
-                <span class="n">sino</span><span class="o">.</span><span class="n">set_signal_type</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-                <span class="n">sino</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Signal2D</span><span class="p">,</span> <span class="n">sino</span><span class="o">.</span><span class="n">as_signal2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
-                    <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Sinogram at x = </span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">units</span><span class="si">}</span><span class="s2">&quot;</span> <span class="c1"># type: ignore</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Sinogram at column </span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Sinogram at column </span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="c1"># if there was an error above, reset the logger state</span>
             <span class="c1"># before raising it</span>
