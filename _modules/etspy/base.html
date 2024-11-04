@@ -1244,14 +1244,6 @@ $(document).ready(function(){
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create stack from HyperSpy signal (helper method for __init__).&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">axes_manager</span><span class="o">.</span><span class="n">navigation_dimension</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">ntilts</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">size</span>
-            <span class="k">if</span> <span class="p">(</span>
-                <span class="n">data</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">Undefined</span>
-                <span class="ow">or</span> <span class="n">data</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;z&quot;</span>
-            <span class="p">):</span>
-                <span class="n">data</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Projections&quot;</span>
-            <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">units</span> <span class="o">==</span> <span class="n">Undefined</span><span class="p">:</span>
-                <span class="n">data</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;degrees&quot;</span>
-                <span class="k">del</span> <span class="n">data</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">ntilts</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="s2">&quot;Projections&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">size</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">tilts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ntilts</span> <span class="o">!=</span> <span class="n">tilts</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
@@ -1305,6 +1297,22 @@ $(document).ready(function(){
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
         <span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">_fix_projection_axis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Uda</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="n">axis_number</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">ax</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="n">Undefined</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">):</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Projections&quot;</span>
+        <span class="k">if</span> <span class="n">ax</span><span class="o">.</span><span class="n">units</span> <span class="o">==</span> <span class="n">Undefined</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;degrees&quot;</span>
+            <span class="k">del</span> <span class="n">ax</span><span class="o">.</span><span class="n">scale</span>
+
+    <span class="k">def</span> <span class="nf">_fix_frames_axis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Uda</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="n">axis_number</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">ax</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="n">Undefined</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">):</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Frames&quot;</span>
+        <span class="k">if</span> <span class="n">ax</span><span class="o">.</span><span class="n">units</span> <span class="o">==</span> <span class="n">Undefined</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;images&quot;</span>
+            <span class="k">del</span> <span class="n">ax</span><span class="o">.</span><span class="n">scale</span>
+
     <span class="k">def</span> <span class="nf">_create_tomostack_from_ndarray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">tilts</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create stack from Numpy array (helper method for __init__).&quot;&quot;&quot;</span>
         <span class="n">ntilts</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -1327,20 +1335,34 @@ $(document).ready(function(){
         <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;Tomography&quot;</span><span class="p">)</span>
         <span class="n">cast</span><span class="p">(</span><span class="n">Dtb</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">Tomography</span><span class="p">)</span><span class="o">.</span><span class="n">add_dictionary</span><span class="p">(</span><span class="n">tomo_metadata</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">Undefined</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;z&quot;</span>
-        <span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Projections&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">units</span> <span class="o">==</span> <span class="n">Undefined</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;degrees&quot;</span>
-            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">units</span> <span class="o">==</span> <span class="n">Undefined</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;pixels&quot;</span>
+        <span class="c1"># need to handle navigation_dimension == 1 (normal case) or == 2 (multiframe)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="o">.</span><span class="n">navigation_dimension</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># single projection (rare case, but should allow)</span>
+            <span class="k">pass</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="o">.</span><span class="n">navigation_dimension</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># normal case</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fix_projection_axis</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="o">.</span><span class="n">navigation_dimension</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># noqa: PLR2004</span>
+            <span class="c1"># multiframe</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fix_projection_axis</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fix_frames_axis</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;Invalid number of navigation dimensions for a TomoStack (&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="o">.</span><span class="n">navigation_dimension</span><span class="si">}</span><span class="s2">). Must be either 0, 1, or 2.&quot;</span>
+            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;y&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">units</span> <span class="o">==</span> <span class="n">Undefined</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;pixels&quot;</span>
+        <span class="n">signal_axes</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Uda</span><span class="p">,</span> <span class="n">Uda</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="o">.</span><span class="n">signal_axes</span><span class="p">)</span>
+        <span class="n">x_axis</span> <span class="o">=</span> <span class="n">signal_axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">x_axis</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span>
+        <span class="k">if</span> <span class="n">x_axis</span><span class="o">.</span><span class="n">units</span> <span class="o">==</span> <span class="n">Undefined</span><span class="p">:</span>
+            <span class="n">x_axis</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;pixels&quot;</span>
+
+        <span class="n">y_axis</span> <span class="o">=</span> <span class="n">signal_axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">y_axis</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;y&quot;</span>
+        <span class="k">if</span> <span class="n">y_axis</span><span class="o">.</span><span class="n">units</span> <span class="o">==</span> <span class="n">Undefined</span><span class="p">:</span>
+            <span class="n">y_axis</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;pixels&quot;</span>
 
 <div class="viewcode-block" id="TomoStack.__init__">
 <a class="viewcode-back" href="../../api/etspy.base.TomoStack.__init__.html#etspy.base.TomoStack.__init__">[docs]</a>
@@ -2598,7 +2620,7 @@ $(document).ready(function(){
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">cuda</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;CUDA not detected with Astra&quot;</span><span class="p">)</span>
-        <span class="n">sinogram</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">isig</span><span class="p">[</span><span class="n">nslice</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">sinogram</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">isig</span><span class="p">[</span><span class="n">nslice</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
         <span class="n">rec_stack</span><span class="p">,</span> <span class="n">error</span> <span class="o">=</span> <span class="n">recon</span><span class="o">.</span><span class="n">astra_error</span><span class="p">(</span>
             <span class="n">sinogram</span><span class="p">,</span>
             <span class="n">angles</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tilts</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
@@ -2681,13 +2703,17 @@ $(document).ready(function(){
         <span class="k">try</span><span class="p">:</span>
             <span class="n">sino</span> <span class="o">=</span> <span class="bp">self</span>
             <span class="k">if</span> <span class="n">row</span><span class="p">:</span>
-                <span class="n">sino</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Signal2D</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">isig</span><span class="p">[:,</span> <span class="n">row</span><span class="p">]</span><span class="o">.</span><span class="n">as_signal2D</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)))</span>
+                <span class="n">sino</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">isig</span><span class="p">[:,</span> <span class="n">row</span><span class="p">]</span>
+                <span class="n">sino</span><span class="o">.</span><span class="n">set_signal_type</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="n">sino</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Signal2D</span><span class="p">,</span> <span class="n">sino</span><span class="o">.</span><span class="n">as_signal2D</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
                     <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Sinogram at y = </span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">units</span><span class="si">}</span><span class="s2">&quot;</span> <span class="c1"># type: ignore</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Sinogram at row </span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">sino</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Signal2D</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">isig</span><span class="p">[</span><span class="n">column</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">as_signal2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)))</span>
+                <span class="n">sino</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">isig</span><span class="p">[</span><span class="n">column</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="n">sino</span><span class="o">.</span><span class="n">set_signal_type</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="n">sino</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Signal2D</span><span class="p">,</span> <span class="n">sino</span><span class="o">.</span><span class="n">as_signal2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
                     <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Sinogram at x = </span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">units</span><span class="si">}</span><span class="s2">&quot;</span> <span class="c1"># type: ignore</span>
                 <span class="k">else</span><span class="p">:</span>
@@ -2701,7 +2727,6 @@ $(document).ready(function(){
         <span class="n">logger</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="n">orig_logger_state</span>
         <span class="n">sino</span> <span class="o">=</span> <span class="n">sino</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
         <span class="n">sino</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">set_item</span><span class="p">(</span><span class="s2">&quot;General.title&quot;</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
-        <span class="n">sino</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">set_item</span><span class="p">(</span><span class="s2">&quot;Signal.signal_type&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">sino</span></div>
 </div>
 
