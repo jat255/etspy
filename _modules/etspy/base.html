@@ -2752,82 +2752,6 @@ $(document).ready(function(){
     <span class="n">_signal_type</span> <span class="o">=</span> <span class="s2">&quot;RecStack&quot;</span>
     <span class="n">_signal_dimension</span> <span class="o">=</span> <span class="mi">2</span>
 
-    <span class="k">def</span> <span class="nf">_create_recstack_from_signal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create stack from HyperSpy signal (helper method for __init__).&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">axes_manager</span><span class="o">.</span><span class="n">navigation_dimension</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;RecStack objects are currently limited to a single navigation axis.&quot;</span>
-            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">Undefined</span> <span class="ow">or</span> <span class="n">data</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span>
-            <span class="n">data</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span>
-        <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">units</span> <span class="o">==</span> <span class="n">Undefined</span><span class="p">:</span>
-            <span class="n">data</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;pixels&quot;</span>
-            <span class="k">del</span> <span class="n">data</span><span class="o">.</span><span class="n">axes_manager</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span>
-
-        <span class="n">tomo_metadata</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;Tomography&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;cropped&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                <span class="s2">&quot;xshift&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                <span class="s2">&quot;yshift&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="p">},</span>
-        <span class="p">}</span>
-        <span class="c1"># metadata may already be present in data</span>
-        <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">has_item</span><span class="p">(</span><span class="s2">&quot;Tomography&quot;</span><span class="p">):</span>
-            <span class="c1"># don&#39;t do anything if the signal already has Tomography metadata</span>
-            <span class="k">pass</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># if not, create default one</span>
-            <span class="n">data</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_dictionary</span><span class="p">(</span><span class="n">tomo_metadata</span><span class="p">)</span>
-        <span class="n">metadata_dict</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">as_dictionary</span><span class="p">()</span>
-
-        <span class="c1"># metadata may be supplied in kwargs; if so, overwrite</span>
-        <span class="c1"># any existing metadata:</span>
-        <span class="k">if</span> <span class="s2">&quot;metadata&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">metadata_dict</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">]</span>
-            <span class="c1"># add default Tomo metadata if not present</span>
-            <span class="k">if</span> <span class="s2">&quot;Tomography&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">metadata_dict</span><span class="p">:</span>
-                <span class="n">metadata_dict</span><span class="p">[</span><span class="s2">&quot;Tomography&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tomo_metadata</span><span class="p">[</span><span class="s2">&quot;Tomography&quot;</span><span class="p">]</span>
-            <span class="c1"># remove from kwargs so we don&#39;t supply it twice</span>
-            <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">]</span>
-
-        <span class="c1"># do similar check for original metadata</span>
-        <span class="n">original_metadata_dict</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">original_metadata</span><span class="o">.</span><span class="n">as_dictionary</span><span class="p">()</span>
-        <span class="k">if</span> <span class="s2">&quot;original_metadata&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">original_metadata_dict</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;original_metadata&quot;</span><span class="p">]</span>
-            <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;original_metadata&quot;</span><span class="p">]</span>
-
-        <span class="c1"># similar for axes</span>
-        <span class="n">axes_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">axes_manager</span><span class="o">.</span><span class="n">as_dictionary</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">())]</span>
-        <span class="k">if</span> <span class="s2">&quot;axes&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">axes_list</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;axes&quot;</span><span class="p">]</span>
-            <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;axes&quot;</span><span class="p">]</span>
-
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">data</span><span class="p">,</span>
-            <span class="n">axes</span><span class="o">=</span><span class="n">axes_list</span><span class="p">,</span>
-            <span class="n">metadata</span><span class="o">=</span><span class="n">metadata_dict</span><span class="p">,</span>
-            <span class="n">original_metadata</span><span class="o">=</span><span class="n">original_metadata_dict</span><span class="p">,</span>
-            <span class="o">*</span><span class="n">args</span><span class="p">,</span>  <span class="c1"># noqa: B026</span>
-            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-        <span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_create_recstack_from_ndarray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create stack from Numpy array (helper method for __init__).&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="s2">&quot;metadata&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="s2">&quot;Tomography&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">]:</span>
-            <span class="n">tomo_metadata</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">][</span><span class="s2">&quot;Tomography&quot;</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">tomo_metadata</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;cropped&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                <span class="s2">&quot;xshift&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                <span class="s2">&quot;yshift&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="p">}</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">data</span><span class="p">,</span>
-            <span class="o">*</span><span class="n">args</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;Tomography&quot;</span><span class="p">)</span>
-        <span class="n">cast</span><span class="p">(</span><span class="n">Dtb</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">Tomography</span><span class="p">)</span><span class="o">.</span><span class="n">add_dictionary</span><span class="p">(</span><span class="n">tomo_metadata</span><span class="p">)</span>
-
 <div class="viewcode-block" id="RecStack.__init__">
 <a class="viewcode-back" href="../../api/etspy.base.RecStack.__init__.html#etspy.base.RecStack.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -2844,6 +2768,12 @@ $(document).ready(function(){
 <span class="sd">            :py:class:`~hyperspy.api.signals.Signal2D`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="o">.</span><span class="n">navigation_dimension</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;A RecStack must have a singular navigation axis. Navigation &quot;</span>
+                   <span class="sa">f</span><span class="s2">&quot;shape was: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">axes_manager</span><span class="o">.</span><span class="n">navigation_shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">inav</span> <span class="o">=</span> <span class="n">_RecStackSlicer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">isNavigation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">isig</span> <span class="o">=</span> <span class="n">_RecStackSlicer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">isNavigation</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
