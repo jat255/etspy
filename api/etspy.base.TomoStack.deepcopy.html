@@ -14,7 +14,7 @@
     
     
       
-        <title>etspy.base.TomoStack.save - ETSpy 0.9.3 documentation</title>
+        <title>etspy.base.TomoStack.deepcopy - ETSpy 0.9.3 documentation</title>
       
     
     
@@ -119,7 +119,7 @@ $(document).ready(function(){
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              etspy.base.TomoStack.save
+              etspy.base.TomoStack.deepcopy
             
           </span>
         </div>
@@ -452,12 +452,20 @@ $(document).ready(function(){
               
   
   
+    
+  
+    
   
   
-    <li class="md-nav__item">
-      <a href="etspy.base.TomoStack.deepcopy.html" class="md-nav__link">
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
         <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="etspy.base.TomoStack.deepcopy — Return a &#34;deep copy&#34; of this Stack." class="md-ellipsis">deepcopy</span>
       </a>
+      
     </li>
   
 
@@ -512,20 +520,12 @@ $(document).ready(function(){
               
   
   
-    
-  
-    
   
   
-    <li class="md-nav__item md-nav__item--active">
-      
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      <a href="#" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="etspy.base.TomoStack.save.html" class="md-nav__link">
         <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="etspy.base.TomoStack.save — Save the signal in the specified format." class="md-ellipsis">save</span>
       </a>
-      
     </li>
   
 
@@ -937,13 +937,17 @@ $(document).ready(function(){
 
 
 <dl class="py method objdesc">
-<dt class="sig sig-object highlight sig-wrap py">
-<span class="sig-prename descclassname"><span class="pre">etspy.base.</span><span class="pre">TomoStack.</span></span><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#" title="etspy.base.TomoStack.save.filename"><span class="n"><span class="pre">filename</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#" title="etspy.base.TomoStack.save.overwrite"><span class="n"><span class="pre">overwrite</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#" title="etspy.base.TomoStack.save.extension"><span class="n"><span class="pre">extension</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#" title="etspy.base.TomoStack.save.file_format"><span class="n"><span class="pre">file_format</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">**</span></span><a class="n reference internal" href="#" title="etspy.base.TomoStack.save.kwargs"><span class="n"><span class="pre">kwargs</span></span></a></em></span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/etspy/base.html#TomoStack.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Save the signal in the specified format.</p>
-<p>Overloads the HyperSpy <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.save" title="(in HyperSpy v2.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">save()</span></code></a> method
-so that tilts and shifts are written to metadata prior to saving. All arguments
-are the same as <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.save" title="(in HyperSpy v2.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">save()</span></code></a>, so please
-consult that method’s documentation for details.</p>
+<dt class="sig sig-object highlight py">
+<span class="sig-prename descclassname"><span class="pre">etspy.base.</span><span class="pre">TomoStack.</span></span><span class="sig-name descname"><span class="pre">deepcopy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/etspy/base.html#TomoStack.deepcopy"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Return a “deep copy” of this Stack.</p>
+<p>Uses the standard library’s <a class="reference external" href="https://docs.python.org/3/library/copy.html#copy.deepcopy" title="(in Python v3.13)"><code class="xref py py-func docutils literal notranslate"><span class="pre">deepcopy()</span></code></a> function. Note: this means
+the underlying data structure will be duplicated in memory.</p>
+<p>Overrides the <a class="reference external" href="https://hyperspy.org/hyperspy-doc/current/reference/api.signals/BaseSignal.html#hyperspy.api.signals.BaseSignal.deepcopy" title="(in HyperSpy v2.1)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">deepcopy()</span></code></a>
+method to ensure the <code class="docutils literal notranslate"><span class="pre">tilts</span></code> and <code class="docutils literal notranslate"><span class="pre">shifts</span></code> properties are also copied</p>
+<div class="seealso admonition">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="etspy.base.TomoStack.copy.html" title="etspy.base.TomoStack.copy — Return a &quot;shallow copy&quot; of this Stack."><code class="xref py py-meth docutils literal notranslate"><span class="pre">copy()</span></code></a></p>
+</div>
 </dd></dl>
 
 
@@ -975,7 +979,7 @@ consult that method’s documentation for details.</p>
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="etspy.base.TomoStack.remove_projections.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: etspy.base.TomoStack.remove_projections" rel="prev">
+        <a href="etspy.base.TomoStack.shift_and_tilt_setter.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: etspy.base.TomoStack.shift_and_tilt_setter" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -984,20 +988,20 @@ consult that method’s documentation for details.</p>
               <span class="md-footer__direction">
                 Previous
               </span>
-              etspy.base.TomoStack.remove_projections
+              etspy.base.TomoStack.shift_and_tilt_setter
             </div>
           </div>
         </a>
       
       
         
-        <a href="etspy.base.TomoStack.test_correlation.html" class="md-footer__link md-footer__link--next" aria-label="Next: etspy.base.TomoStack.test_correlation" rel="next">
+        <a href="etspy.base.TomoStack.copy.html" class="md-footer__link md-footer__link--next" aria-label="Next: etspy.base.TomoStack.copy" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              etspy.base.TomoStack.test_correlation
+              etspy.base.TomoStack.copy
             </div>
           </div>
           <div class="md-footer__button md-icon">

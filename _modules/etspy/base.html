@@ -826,53 +826,6 @@ $(document).ready(function(){
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">navigator</span><span class="o">=</span><span class="n">navigator</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># noqa: B026</span></div>
 
 
-<div class="viewcode-block" id="CommonStack.deepcopy">
-<a class="viewcode-back" href="../../api/etspy.base.TomoStack.html#etspy.base.CommonStack.deepcopy">[docs]</a>
-    <span class="k">def</span> <span class="nf">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return a &quot;deep copy&quot; of this Stack.</span>
-
-<span class="sd">        Uses the standard library&#39;s :func:`~copy.deepcopy` function. Note: this means</span>
-<span class="sd">        the underlying data structure will be duplicated in memory.</span>
-
-<span class="sd">        Overrides the :py:meth:`~hyperspy.api.signals.BaseSignal.deepcopy`</span>
-<span class="sd">        method to ensure the ``tilts`` and ``shifts`` properties are also copied</span>
-
-<span class="sd">        See Also</span>
-<span class="sd">        --------</span>
-<span class="sd">        :py:meth:`~etspy.base.CommonStack.copy`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;tilts&quot;</span><span class="p">):</span>
-            <span class="n">s</span><span class="o">.</span><span class="n">tilts</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tilts</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;shifts&quot;</span><span class="p">):</span>
-            <span class="n">s</span><span class="o">.</span><span class="n">shifts</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shifts</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">s</span></div>
-
-
-<div class="viewcode-block" id="CommonStack.copy">
-<a class="viewcode-back" href="../../api/etspy.base.TomoStack.html#etspy.base.CommonStack.copy">[docs]</a>
-    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return a &quot;shallow copy&quot; of this Stack.</span>
-
-<span class="sd">        Uses the standard library&#39;s :func:`~copy.copy` function. Note: this will</span>
-<span class="sd">        return a copy of the, Stack, but it will not duplicate the underlying</span>
-<span class="sd">        data in memory, and both Stacks will reference the same data.</span>
-
-<span class="sd">        Overrides the :py:meth:`~hyperspy.api.signals.BaseSignal.copy`</span>
-<span class="sd">        method to ensure the ``tilts`` and ``shifts`` properties are also copied</span>
-
-<span class="sd">        See Also</span>
-<span class="sd">        --------</span>
-<span class="sd">        :py:meth:`~etspy.base.CommonStack.deepcopy`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">s</span><span class="o">.</span><span class="n">tilts</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tilts</span><span class="p">)</span>
-        <span class="n">s</span><span class="o">.</span><span class="n">shifts</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shifts</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">s</span></div>
-
-
 <div class="viewcode-block" id="CommonStack.change_data_type">
 <a class="viewcode-back" href="../../api/etspy.base.TomoStack.html#etspy.base.CommonStack.change_data_type">[docs]</a>
     <span class="k">def</span> <span class="nf">change_data_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">]):</span>
@@ -1631,6 +1584,52 @@ $(document).ready(function(){
             <span class="n">TomoTilts</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">shift_and_tilt_setter</span><span class="p">(</span><span class="s2">&quot;tilts&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tilts</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span>
         <span class="p">)</span>
+
+
+<div class="viewcode-block" id="TomoStack.deepcopy">
+<a class="viewcode-back" href="../../api/etspy.base.TomoStack.deepcopy.html#etspy.base.TomoStack.deepcopy">[docs]</a>
+    <span class="k">def</span> <span class="nf">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a &quot;deep copy&quot; of this Stack.</span>
+
+<span class="sd">        Uses the standard library&#39;s :func:`~copy.deepcopy` function. Note: this means</span>
+<span class="sd">        the underlying data structure will be duplicated in memory.</span>
+
+<span class="sd">        Overrides the :py:meth:`~hyperspy.api.signals.BaseSignal.deepcopy`</span>
+<span class="sd">        method to ensure the ``tilts`` and ``shifts`` properties are also copied</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        :py:meth:`~etspy.base.TomoStack.copy`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">tilts</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tilts</span><span class="p">)</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">shifts</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shifts</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span></div>
+
+
+<div class="viewcode-block" id="TomoStack.copy">
+<a class="viewcode-back" href="../../api/etspy.base.TomoStack.copy.html#etspy.base.TomoStack.copy">[docs]</a>
+    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a &quot;shallow copy&quot; of this Stack.</span>
+
+<span class="sd">        Uses the standard library&#39;s :func:`~copy.copy` function. Note: this will</span>
+<span class="sd">        return a copy of the, Stack, but it will not duplicate the underlying</span>
+<span class="sd">        data in memory, and both Stacks will reference the same data.</span>
+
+<span class="sd">        Overrides the :py:meth:`~hyperspy.api.signals.BaseSignal.copy`</span>
+<span class="sd">        method to ensure the ``tilts`` and ``shifts`` properties are also copied</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        :py:meth:`~etspy.base.TomoStack.deepcopy`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">tilts</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tilts</span><span class="p">)</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">shifts</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shifts</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span></div>
+
 
 <div class="viewcode-block" id="TomoStack.plot_sinos">
 <a class="viewcode-back" href="../../api/etspy.base.TomoStack.plot_sinos.html#etspy.base.TomoStack.plot_sinos">[docs]</a>
