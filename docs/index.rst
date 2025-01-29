@@ -21,4 +21,4 @@
 .. include:: ../README.md
    :parser: myst_parser.sphinx_
 
-*Documentation last generated:* |today|
+*Documentation last generated:* |today| (UTC)
