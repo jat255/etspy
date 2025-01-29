@@ -14,7 +14,7 @@
     
     
       
-        <title>etspy.io - ETSpy 1.0.1 documentation</title>
+        <title>etspy.io - ETSpy 1.0.2a0 documentation</title>
       
     
     
@@ -103,7 +103,7 @@ $(document).ready(function(){
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../index.html" title="ETSpy 1.0.1 documentation" class="md-header__button md-logo" aria-label="ETSpy 1.0.1 documentation" data-md-component="logo">
+    <a href="../../index.html" title="ETSpy 1.0.2a0 documentation" class="md-header__button md-logo" aria-label="ETSpy 1.0.2a0 documentation" data-md-component="logo">
       <img src="../../_static/ETSpy_logo_trans.png" alt="logo">
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -113,7 +113,7 @@ $(document).ready(function(){
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            ETSpy 1.0.1 documentation
+            ETSpy 1.0.2a0 documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -226,10 +226,10 @@ $(document).ready(function(){
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../index.html" title="ETSpy 1.0.1 documentation" class="md-nav__button md-logo" aria-label="ETSpy 1.0.1 documentation" data-md-component="logo">
+    <a href="../../index.html" title="ETSpy 1.0.2a0 documentation" class="md-nav__button md-logo" aria-label="ETSpy 1.0.2a0 documentation" data-md-component="logo">
       <img src="../../_static/ETSpy_logo_trans.png" alt="logo">
     </a>
-    ETSpy 1.0.1 documentation
+    ETSpy 1.0.2a0 documentation
   </label>
   
     <div class="md-nav__source">
@@ -485,23 +485,23 @@ $(document).ready(function(){
 <h1>Source code for etspy.io</h1><div class="highlight"><pre>
 <span></span><code><span class="sd">&quot;&quot;&quot;Data input/output module for ETSpy package.&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">cast</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">cast</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">hyperspy._signals.signal2d</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">hyperspy._signals.signal2d</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">Signal2D</span><span class="p">,</span>  <span class="c1"># import from _signals for type-checking</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">hyperspy.io</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">hyperspy.io</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">load</span> <span class="k">as</span> <span class="n">hs_load</span><span class="p">,</span>  <span class="c1"># import load function directly for better type-checking</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">hyperspy.misc.utils</span> <span class="kn">import</span> <span class="n">DictionaryTreeBrowser</span> <span class="k">as</span> <span class="n">Dtb</span>
-<span class="kn">from</span> <span class="nn">hyperspy.misc.utils</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">hyperspy.misc.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">DictionaryTreeBrowser</span> <span class="k">as</span> <span class="n">Dtb</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">hyperspy.misc.utils</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">stack</span> <span class="k">as</span> <span class="n">hs_stack</span><span class="p">,</span>  <span class="c1"># import stack function directly for better type-checking</span>
 <span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">etspy.base</span> <span class="kn">import</span> <span class="n">TomoStack</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">etspy.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">TomoStack</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
@@ -516,7 +516,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="get_mrc_tilts">
 <a class="viewcode-back" href="../../api/etspy.io.get_mrc_tilts.html#etspy.io.get_mrc_tilts">[docs]</a>
-<span class="k">def</span> <span class="nf">get_mrc_tilts</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_mrc_tilts</span><span class="p">(</span>
     <span class="n">stack</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Signal2D</span><span class="p">,</span> <span class="n">TomoStack</span><span class="p">],</span>
     <span class="n">filename</span><span class="p">:</span> <span class="n">PathLike</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
@@ -568,7 +568,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="get_dm_tilts">
 <a class="viewcode-back" href="../../api/etspy.io.get_dm_tilts.html#etspy.io.get_dm_tilts">[docs]</a>
-<span class="k">def</span> <span class="nf">get_dm_tilts</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Signal2D</span><span class="p">,</span> <span class="n">TomoStack</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_dm_tilts</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Signal2D</span><span class="p">,</span> <span class="n">TomoStack</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract tilts from DM tags.</span>
 
 <span class="sd">    Parameters</span>
@@ -604,7 +604,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="parse_mdoc">
 <a class="viewcode-back" href="../../api/etspy.io.parse_mdoc.html#etspy.io.parse_mdoc">[docs]</a>
-<span class="k">def</span> <span class="nf">parse_mdoc</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_mdoc</span><span class="p">(</span>
     <span class="n">mdoc_file</span><span class="p">:</span> <span class="n">PathLike</span><span class="p">,</span>
     <span class="n">series</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
@@ -670,7 +670,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="load_serialem">
 <a class="viewcode-back" href="../../api/etspy.io.load_serialem.html#etspy.io.load_serialem">[docs]</a>
-<span class="k">def</span> <span class="nf">load_serialem</span><span class="p">(</span><span class="n">mrcfile</span><span class="p">:</span> <span class="n">PathLike</span><span class="p">,</span> <span class="n">mdocfile</span><span class="p">:</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TomoStack</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_serialem</span><span class="p">(</span><span class="n">mrcfile</span><span class="p">:</span> <span class="n">PathLike</span><span class="p">,</span> <span class="n">mdocfile</span><span class="p">:</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TomoStack</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a multi-frame series collected by SerialEM.</span>
 
@@ -721,7 +721,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="load_serialem_series">
 <a class="viewcode-back" href="../../api/etspy.io.load_serialem_series.html#etspy.io.load_serialem_series">[docs]</a>
-<span class="k">def</span> <span class="nf">load_serialem_series</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_serialem_series</span><span class="p">(</span>
     <span class="n">mrcfiles</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">]],</span>
     <span class="n">mdocfiles</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">]],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Signal2D</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
@@ -824,7 +824,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="parse_mrc_header">
 <a class="viewcode-back" href="../../api/etspy.io.parse_mrc_header.html#etspy.io.parse_mrc_header">[docs]</a>
-<span class="k">def</span> <span class="nf">parse_mrc_header</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_mrc_header</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Read the mrc header and return as dictionary.</span>
 
@@ -891,7 +891,7 @@ $(document).ready(function(){
 
 
 
-<span class="k">def</span> <span class="nf">_load_single_file</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TomoStack</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_load_single_file</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TomoStack</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a HyperSpy signal and any tilts from a single file.&quot;&quot;&quot;</span>
     <span class="n">ext</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">suffix</span>
     <span class="n">tilts</span><span class="p">,</span> <span class="n">shifts</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
@@ -917,7 +917,7 @@ $(document).ready(function(){
             <span class="n">tilts</span> <span class="o">=</span> <span class="n">get_mrc_tilts</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Unable to read MRC with Hyperspy&quot;</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Unknown file type &quot;</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s1">&quot;. Must be one of </span><span class="si">{</span><span class="n">known_file_types</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
@@ -928,7 +928,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="load">
 <a class="viewcode-back" href="../../api/etspy.io.load.html#etspy.io.load">[docs]</a>
-<span class="k">def</span> <span class="nf">load</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span>
     <span class="n">filename</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">PathLike</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">]],</span>
     <span class="n">tilts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">mdocs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>

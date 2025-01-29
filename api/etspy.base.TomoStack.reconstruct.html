@@ -14,7 +14,7 @@
     
     
       
-        <title>etspy.base.TomoStack.reconstruct - ETSpy 1.0.1 documentation</title>
+        <title>etspy.base.TomoStack.reconstruct - ETSpy 1.0.2a0 documentation</title>
       
     
     
@@ -108,7 +108,7 @@ $(document).ready(function(){
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../index.html" title="ETSpy 1.0.1 documentation" class="md-header__button md-logo" aria-label="ETSpy 1.0.1 documentation" data-md-component="logo">
+    <a href="../index.html" title="ETSpy 1.0.2a0 documentation" class="md-header__button md-logo" aria-label="ETSpy 1.0.2a0 documentation" data-md-component="logo">
       <img src="../_static/ETSpy_logo_trans.png" alt="logo">
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -118,7 +118,7 @@ $(document).ready(function(){
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            ETSpy 1.0.1 documentation
+            ETSpy 1.0.2a0 documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -231,10 +231,10 @@ $(document).ready(function(){
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../index.html" title="ETSpy 1.0.1 documentation" class="md-nav__button md-logo" aria-label="ETSpy 1.0.1 documentation" data-md-component="logo">
+    <a href="../index.html" title="ETSpy 1.0.2a0 documentation" class="md-nav__button md-logo" aria-label="ETSpy 1.0.2a0 documentation" data-md-component="logo">
       <img src="../_static/ETSpy_logo_trans.png" alt="logo">
     </a>
-    ETSpy 1.0.1 documentation
+    ETSpy 1.0.2a0 documentation
   </label>
   
     <div class="md-nav__source">
@@ -1281,14 +1281,14 @@ under the <code class="docutils literal notranslate"><span class="pre">cfg.Filte
 </dl>
 <p class="example rubric" id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></p>
 <dl>
-<dt>Filtered backprojection (FBP) reconstruction:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">etspy.datasets</span> <span class="k">as</span> <span class="nn">ds</span>
+<dt>Filtered backprojection (FBP) reconstruction:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">etspy.datasets</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ds</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stack</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">get_needle_data</span><span class="p">(</span><span class="n">aligned</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">slices</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">isig</span><span class="p">[:,</span> <span class="mi">120</span><span class="p">:</span><span class="mi">121</span><span class="p">]</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rec</span> <span class="o">=</span> <span class="n">slices</span><span class="o">.</span><span class="n">reconstruct</span><span class="p">(</span><span class="s1">&#39;FBP&#39;</span><span class="p">,</span> <span class="n">cuda</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </code></pre></div>
 </div>
 </dd>
-<dt>Simultaneous iterative reconstruction technique (SIRT) reconstruction:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">etspy.datasets</span> <span class="k">as</span> <span class="nn">ds</span>
+<dt>Simultaneous iterative reconstruction technique (SIRT) reconstruction:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">etspy.datasets</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ds</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stack</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">get_needle_data</span><span class="p">(</span><span class="n">aligned</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">slices</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">isig</span><span class="p">[:,</span> <span class="mi">120</span><span class="p">:</span><span class="mi">121</span><span class="p">]</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rec</span> <span class="o">=</span> <span class="n">slices</span><span class="o">.</span><span class="n">reconstruct</span><span class="p">(</span><span class="s1">&#39;SIRT&#39;</span><span class="p">,</span><span class="n">iterations</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
@@ -1296,7 +1296,7 @@ under the <code class="docutils literal notranslate"><span class="pre">cfg.Filte
 </code></pre></div>
 </div>
 </dd>
-<dt>SIRT reconstruction with positivity constraint:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">etspy.datasets</span> <span class="k">as</span> <span class="nn">ds</span>
+<dt>SIRT reconstruction with positivity constraint:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">etspy.datasets</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ds</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stack</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">get_needle_data</span><span class="p">(</span><span class="n">aligned</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">slices</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">isig</span><span class="p">[:,</span> <span class="mi">120</span><span class="p">:</span><span class="mi">121</span><span class="p">]</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">iterations</span> <span class="o">=</span> <span class="mi">5</span>
@@ -1307,7 +1307,7 @@ under the <code class="docutils literal notranslate"><span class="pre">cfg.Filte
 </code></pre></div>
 </div>
 </dd>
-<dt>Discreate algebraice reconstruction technique (DART) reconstruction:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">etspy.datasets</span> <span class="k">as</span> <span class="nn">ds</span>
+<dt>Discreate algebraice reconstruction technique (DART) reconstruction:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">etspy.datasets</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ds</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stack</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">get_needle_data</span><span class="p">(</span><span class="n">aligned</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">slices</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">isig</span><span class="p">[:,</span> <span class="mi">120</span><span class="p">:</span><span class="mi">121</span><span class="p">]</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">gray_levels</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="n">slices</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">slices</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>

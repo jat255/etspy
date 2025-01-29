@@ -14,7 +14,7 @@
     
     
       
-        <title>etspy.recon - ETSpy 1.0.1 documentation</title>
+        <title>etspy.recon - ETSpy 1.0.2a0 documentation</title>
       
     
     
@@ -103,7 +103,7 @@ $(document).ready(function(){
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../index.html" title="ETSpy 1.0.1 documentation" class="md-header__button md-logo" aria-label="ETSpy 1.0.1 documentation" data-md-component="logo">
+    <a href="../../index.html" title="ETSpy 1.0.2a0 documentation" class="md-header__button md-logo" aria-label="ETSpy 1.0.2a0 documentation" data-md-component="logo">
       <img src="../../_static/ETSpy_logo_trans.png" alt="logo">
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -113,7 +113,7 @@ $(document).ready(function(){
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            ETSpy 1.0.1 documentation
+            ETSpy 1.0.2a0 documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -226,10 +226,10 @@ $(document).ready(function(){
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../index.html" title="ETSpy 1.0.1 documentation" class="md-nav__button md-logo" aria-label="ETSpy 1.0.1 documentation" data-md-component="logo">
+    <a href="../../index.html" title="ETSpy 1.0.2a0 documentation" class="md-nav__button md-logo" aria-label="ETSpy 1.0.2a0 documentation" data-md-component="logo">
       <img src="../../_static/ETSpy_logo_trans.png" alt="logo">
     </a>
-    ETSpy 1.0.1 documentation
+    ETSpy 1.0.2a0 documentation
   </label>
   
     <div class="md-nav__source">
@@ -486,20 +486,20 @@ $(document).ready(function(){
 <span></span><code><span class="c1"># ruff: noqa: UP007</span>
 <span class="sd">&quot;&quot;&quot;Reconstruction module for ETSpy package.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">import</span> <span class="nn">copy</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">multiprocessing</span> <span class="k">as</span> <span class="nn">mp</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">cast</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">multiprocessing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">cast</span>
 
-<span class="kn">import</span> <span class="nn">astra</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">tqdm</span>
-<span class="kn">from</span> <span class="nn">dask.base</span> <span class="kn">import</span> <span class="n">compute</span> <span class="k">as</span> <span class="n">dask_compute</span>
-<span class="kn">from</span> <span class="nn">dask.delayed</span> <span class="kn">import</span> <span class="n">delayed</span> <span class="k">as</span> <span class="n">dask_delayed</span>
-<span class="kn">from</span> <span class="nn">dask.diagnostics.progress</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
-<span class="kn">from</span> <span class="nn">scipy.ndimage</span> <span class="kn">import</span> <span class="n">convolve</span><span class="p">,</span> <span class="n">gaussian_filter</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">astra</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tqdm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dask.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">compute</span> <span class="k">as</span> <span class="n">dask_compute</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dask.delayed</span><span class="w"> </span><span class="kn">import</span> <span class="n">delayed</span> <span class="k">as</span> <span class="n">dask_delayed</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dask.diagnostics.progress</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProgressBar</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.ndimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">convolve</span><span class="p">,</span> <span class="n">gaussian_filter</span>
 
 <span class="n">ncpus</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -508,7 +508,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="run_alg">
 <a class="viewcode-back" href="../../api/etspy.recon.run_alg.html#etspy.recon.run_alg">[docs]</a>
-<span class="k">def</span> <span class="nf">run_alg</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_alg</span><span class="p">(</span>
     <span class="n">sino</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">iters</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">cfg</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
@@ -558,7 +558,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="run_dart">
 <a class="viewcode-back" href="../../api/etspy.recon.run_dart.html#etspy.recon.run_dart">[docs]</a>
-<span class="k">def</span> <span class="nf">run_dart</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_dart</span><span class="p">(</span>
     <span class="n">sino</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">iters</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">dart_iters</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -658,7 +658,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="run">
 <a class="viewcode-back" href="../../api/etspy.recon.run.html#etspy.recon.run">[docs]</a>
-<span class="k">def</span> <span class="nf">run</span><span class="p">(</span>  <span class="c1"># noqa: PLR0912, PLR0913, PLR0915</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span>  <span class="c1"># noqa: PLR0912, PLR0913, PLR0915</span>
     <span class="n">stack</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">tilts</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;FBP&quot;</span><span class="p">,</span> <span class="s2">&quot;SIRT&quot;</span><span class="p">,</span> <span class="s2">&quot;SART&quot;</span><span class="p">,</span> <span class="s2">&quot;DART&quot;</span><span class="p">],</span>
@@ -929,7 +929,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="dart_segment">
 <a class="viewcode-back" href="../../api/etspy.recon.dart_segment.html#etspy.recon.dart_segment">[docs]</a>
-<span class="k">def</span> <span class="nf">dart_segment</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dart_segment</span><span class="p">(</span>
     <span class="n">rec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">thresholds</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
     <span class="n">gray_vals</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
@@ -963,7 +963,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="get_dart_boundaries">
 <a class="viewcode-back" href="../../api/etspy.recon.get_dart_boundaries.html#etspy.recon.get_dart_boundaries">[docs]</a>
-<span class="k">def</span> <span class="nf">get_dart_boundaries</span><span class="p">(</span><span class="n">segmented</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_dart_boundaries</span><span class="p">(</span><span class="n">segmented</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Boundary step for DART Reconstruction.</span>
 
@@ -990,7 +990,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="astra_error">
 <a class="viewcode-back" href="../../api/etspy.recon.astra_error.html#etspy.recon.astra_error">[docs]</a>
-<span class="k">def</span> <span class="nf">astra_error</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">astra_error</span><span class="p">(</span>
     <span class="n">sinogram</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">angles</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;SIRT&quot;</span><span class="p">,</span> <span class="s2">&quot;SART&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;SIRT&quot;</span><span class="p">,</span>

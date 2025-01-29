@@ -14,7 +14,7 @@
     
     
       
-        <title>etspy.utils - ETSpy 1.0.1 documentation</title>
+        <title>etspy.utils - ETSpy 1.0.2a0 documentation</title>
       
     
     
@@ -103,7 +103,7 @@ $(document).ready(function(){
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../index.html" title="ETSpy 1.0.1 documentation" class="md-header__button md-logo" aria-label="ETSpy 1.0.1 documentation" data-md-component="logo">
+    <a href="../../index.html" title="ETSpy 1.0.2a0 documentation" class="md-header__button md-logo" aria-label="ETSpy 1.0.2a0 documentation" data-md-component="logo">
       <img src="../../_static/ETSpy_logo_trans.png" alt="logo">
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -113,7 +113,7 @@ $(document).ready(function(){
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            ETSpy 1.0.1 documentation
+            ETSpy 1.0.2a0 documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -226,10 +226,10 @@ $(document).ready(function(){
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../index.html" title="ETSpy 1.0.1 documentation" class="md-nav__button md-logo" aria-label="ETSpy 1.0.1 documentation" data-md-component="logo">
+    <a href="../../index.html" title="ETSpy 1.0.2a0 documentation" class="md-nav__button md-logo" aria-label="ETSpy 1.0.2a0 documentation" data-md-component="logo">
       <img src="../../_static/ETSpy_logo_trans.png" alt="logo">
     </a>
-    ETSpy 1.0.1 documentation
+    ETSpy 1.0.2a0 documentation
   </label>
   
     <div class="md-nav__source">
@@ -485,26 +485,26 @@ $(document).ready(function(){
 <h1>Source code for etspy.utils</h1><div class="highlight"><pre>
 <span></span><code><span class="sd">&quot;&quot;&quot;Utility module for ETSpy package.&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">cast</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">multiprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pool</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">cast</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">tqdm</span>
-<span class="kn">from</span> <span class="nn">hyperspy._signals.signal2d</span> <span class="kn">import</span> <span class="n">Signal2D</span>
-<span class="kn">from</span> <span class="nn">hyperspy.axes</span> <span class="kn">import</span> <span class="n">UniformDataAxis</span> <span class="k">as</span> <span class="n">Uda</span>
-<span class="kn">from</span> <span class="nn">pystackreg</span> <span class="kn">import</span> <span class="n">StackReg</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tqdm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">hyperspy._signals.signal2d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Signal2D</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">hyperspy.axes</span><span class="w"> </span><span class="kn">import</span> <span class="n">UniformDataAxis</span> <span class="k">as</span> <span class="n">Uda</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pystackreg</span><span class="w"> </span><span class="kn">import</span> <span class="n">StackReg</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">ndimage</span>
 
-<span class="kn">from</span> <span class="nn">etspy</span> <span class="kn">import</span> <span class="n">_format_choices</span> <span class="k">as</span> <span class="n">_fmt</span>
-<span class="kn">from</span> <span class="nn">etspy</span> <span class="kn">import</span> <span class="n">_get_literal_hint_values</span> <span class="k">as</span> <span class="n">_get_lit</span>
-<span class="kn">from</span> <span class="nn">etspy.align</span> <span class="kn">import</span> <span class="n">calculate_shifts_stackreg</span>
-<span class="kn">from</span> <span class="nn">etspy.base</span> <span class="kn">import</span> <span class="n">TomoStack</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">etspy</span><span class="w"> </span><span class="kn">import</span> <span class="n">_format_choices</span> <span class="k">as</span> <span class="n">_fmt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">etspy</span><span class="w"> </span><span class="kn">import</span> <span class="n">_get_literal_hint_values</span> <span class="k">as</span> <span class="n">_get_lit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">etspy.align</span><span class="w"> </span><span class="kn">import</span> <span class="n">calculate_shifts_stackreg</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">etspy.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">TomoStack</span>
 
 
 <div class="viewcode-block" id="multiaverage">
 <a class="viewcode-back" href="../../api/etspy.utils.multiaverage.html#etspy.utils.multiaverage">[docs]</a>
-<span class="k">def</span> <span class="nf">multiaverage</span><span class="p">(</span><span class="n">stack</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">nframes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ny</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">nx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">multiaverage</span><span class="p">(</span><span class="n">stack</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">nframes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ny</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">nx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Register a multi-frame series collected by SerialEM.</span>
 
@@ -529,7 +529,7 @@ $(document).ready(function(){
 <span class="sd">    utilities</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">_calc_sr_shifts</span><span class="p">(</span><span class="n">stack</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_calc_sr_shifts</span><span class="p">(</span><span class="n">stack</span><span class="p">):</span>
         <span class="n">sr</span> <span class="o">=</span> <span class="n">StackReg</span><span class="p">(</span><span class="n">StackReg</span><span class="o">.</span><span class="n">TRANSLATION</span><span class="p">)</span>
         <span class="n">shifts</span> <span class="o">=</span> <span class="n">sr</span><span class="o">.</span><span class="n">register_stack</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">reference</span><span class="o">=</span><span class="s2">&quot;previous&quot;</span><span class="p">)</span>
         <span class="n">shifts</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">shifts</span><span class="p">])</span>
@@ -549,7 +549,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="register_serialem_stack">
 <a class="viewcode-back" href="../../api/etspy.utils.register_serialem_stack.html#etspy.utils.register_serialem_stack">[docs]</a>
-<span class="k">def</span> <span class="nf">register_serialem_stack</span><span class="p">(</span><span class="n">stack</span><span class="p">:</span> <span class="n">Signal2D</span><span class="p">,</span> <span class="n">ncpus</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TomoStack</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">register_serialem_stack</span><span class="p">(</span><span class="n">stack</span><span class="p">:</span> <span class="n">Signal2D</span><span class="p">,</span> <span class="n">ncpus</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TomoStack</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Register a multi-frame series collected by SerialEM.</span>
 
@@ -623,7 +623,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="weight_stack">
 <a class="viewcode-back" href="../../api/etspy.utils.weight_stack.html#etspy.utils.weight_stack">[docs]</a>
-<span class="k">def</span> <span class="nf">weight_stack</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">weight_stack</span><span class="p">(</span>
     <span class="n">stack</span><span class="p">:</span> <span class="n">TomoStack</span><span class="p">,</span>
     <span class="n">accuracy</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;low&quot;</span><span class="p">,</span> <span class="s2">&quot;medium&quot;</span><span class="p">,</span> <span class="s2">&quot;high&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;medium&quot;</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TomoStack</span><span class="p">:</span>
@@ -770,7 +770,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="calc_est_angles">
 <a class="viewcode-back" href="../../api/etspy.utils.calc_est_angles.html#etspy.utils.calc_est_angles">[docs]</a>
-<span class="k">def</span> <span class="nf">calc_est_angles</span><span class="p">(</span><span class="n">num_points</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calc_est_angles</span><span class="p">(</span><span class="n">num_points</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Caculate angles used for equally sloped tomography (EST).</span>
 
@@ -818,7 +818,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="calc_golden_ratio_angles">
 <a class="viewcode-back" href="../../api/etspy.utils.calc_golden_ratio_angles.html#etspy.utils.calc_golden_ratio_angles">[docs]</a>
-<span class="k">def</span> <span class="nf">calc_golden_ratio_angles</span><span class="p">(</span><span class="n">tilt_range</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">nangles</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calc_golden_ratio_angles</span><span class="p">(</span><span class="n">tilt_range</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">nangles</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate golden ratio angles for a given tilt range.</span>
 
@@ -854,7 +854,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="get_radial_mask">
 <a class="viewcode-back" href="../../api/etspy.utils.get_radial_mask.html#etspy.utils.get_radial_mask">[docs]</a>
-<span class="k">def</span> <span class="nf">get_radial_mask</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_radial_mask</span><span class="p">(</span>
     <span class="n">mask_shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
     <span class="n">center</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -896,7 +896,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="filter_stack">
 <a class="viewcode-back" href="../../api/etspy.utils.filter_stack.html#etspy.utils.filter_stack">[docs]</a>
-<span class="k">def</span> <span class="nf">filter_stack</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">filter_stack</span><span class="p">(</span>
     <span class="n">stack</span><span class="p">:</span> <span class="n">TomoStack</span><span class="p">,</span>
     <span class="n">filter_name</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>
         <span class="s2">&quot;ram-lak&quot;</span><span class="p">,</span>

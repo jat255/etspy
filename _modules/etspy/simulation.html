@@ -14,7 +14,7 @@
     
     
       
-        <title>etspy.simulation - ETSpy 1.0.1 documentation</title>
+        <title>etspy.simulation - ETSpy 1.0.2a0 documentation</title>
       
     
     
@@ -103,7 +103,7 @@ $(document).ready(function(){
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../index.html" title="ETSpy 1.0.1 documentation" class="md-header__button md-logo" aria-label="ETSpy 1.0.1 documentation" data-md-component="logo">
+    <a href="../../index.html" title="ETSpy 1.0.2a0 documentation" class="md-header__button md-logo" aria-label="ETSpy 1.0.2a0 documentation" data-md-component="logo">
       <img src="../../_static/ETSpy_logo_trans.png" alt="logo">
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -113,7 +113,7 @@ $(document).ready(function(){
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            ETSpy 1.0.1 documentation
+            ETSpy 1.0.2a0 documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -226,10 +226,10 @@ $(document).ready(function(){
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../index.html" title="ETSpy 1.0.1 documentation" class="md-nav__button md-logo" aria-label="ETSpy 1.0.1 documentation" data-md-component="logo">
+    <a href="../../index.html" title="ETSpy 1.0.2a0 documentation" class="md-nav__button md-logo" aria-label="ETSpy 1.0.2a0 documentation" data-md-component="logo">
       <img src="../../_static/ETSpy_logo_trans.png" alt="logo">
     </a>
-    ETSpy 1.0.1 documentation
+    ETSpy 1.0.2a0 documentation
   </label>
   
     <div class="md-nav__source">
@@ -485,22 +485,22 @@ $(document).ready(function(){
 <h1>Source code for etspy.simulation</h1><div class="highlight"><pre>
 <span></span><code><span class="sd">&quot;&quot;&quot;Simulation module for ETSpy package.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">cast</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">cast</span>
 
-<span class="kn">import</span> <span class="nn">astra</span>
-<span class="kn">import</span> <span class="nn">hyperspy.api</span> <span class="k">as</span> <span class="nn">hs</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">hyperspy._signals.signal2d</span> <span class="kn">import</span> <span class="n">Signal2D</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">astra</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hyperspy.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">hs</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">hyperspy._signals.signal2d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Signal2D</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">ndimage</span>
 
-<span class="kn">from</span> <span class="nn">etspy</span> <span class="kn">import</span> <span class="n">_format_choices</span> <span class="k">as</span> <span class="n">_fmt</span>
-<span class="kn">from</span> <span class="nn">etspy</span> <span class="kn">import</span> <span class="n">_get_literal_hint_values</span> <span class="k">as</span> <span class="n">_get_lit</span>
-<span class="kn">from</span> <span class="nn">etspy.api</span> <span class="kn">import</span> <span class="n">TomoStack</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">etspy</span><span class="w"> </span><span class="kn">import</span> <span class="n">_format_choices</span> <span class="k">as</span> <span class="n">_fmt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">etspy</span><span class="w"> </span><span class="kn">import</span> <span class="n">_get_literal_hint_values</span> <span class="k">as</span> <span class="n">_get_lit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">etspy.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">TomoStack</span>
 
 
 <div class="viewcode-block" id="create_catalyst_model">
 <a class="viewcode-back" href="../../api/etspy.simulation.create_catalyst_model.html#etspy.simulation.create_catalyst_model">[docs]</a>
-<span class="k">def</span> <span class="nf">create_catalyst_model</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_catalyst_model</span><span class="p">(</span>
     <span class="n">nparticles</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span>
     <span class="n">particle_density</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">255</span><span class="p">,</span>
     <span class="n">support_density</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
@@ -590,7 +590,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="create_cylinder_model">
 <a class="viewcode-back" href="../../api/etspy.simulation.create_cylinder_model.html#etspy.simulation.create_cylinder_model">[docs]</a>
-<span class="k">def</span> <span class="nf">create_cylinder_model</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_cylinder_model</span><span class="p">(</span>
     <span class="n">radius</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
     <span class="n">blur</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">blur_sigma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span>
@@ -673,7 +673,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="create_model_tilt_series">
 <a class="viewcode-back" href="../../api/etspy.simulation.create_model_tilt_series.html#etspy.simulation.create_model_tilt_series">[docs]</a>
-<span class="k">def</span> <span class="nf">create_model_tilt_series</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_model_tilt_series</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hs</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">Signal2D</span><span class="p">],</span>
     <span class="n">angles</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">cuda</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -740,7 +740,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="misalign_stack">
 <a class="viewcode-back" href="../../api/etspy.simulation.misalign_stack.html#etspy.simulation.misalign_stack">[docs]</a>
-<span class="k">def</span> <span class="nf">misalign_stack</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">misalign_stack</span><span class="p">(</span>
     <span class="n">stack</span><span class="p">:</span> <span class="n">TomoStack</span><span class="p">,</span>
     <span class="n">min_shift</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span>
     <span class="n">max_shift</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
@@ -819,7 +819,7 @@ $(document).ready(function(){
 
 <div class="viewcode-block" id="add_noise">
 <a class="viewcode-back" href="../../api/etspy.simulation.add_noise.html#etspy.simulation.add_noise">[docs]</a>
-<span class="k">def</span> <span class="nf">add_noise</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_noise</span><span class="p">(</span>
     <span class="n">stack</span><span class="p">:</span> <span class="n">TomoStack</span><span class="p">,</span>
     <span class="n">noise_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;gaussian&quot;</span><span class="p">,</span> <span class="s2">&quot;poissonian&quot;</span><span class="p">,</span> <span class="s2">&quot;shot&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;gaussian&quot;</span><span class="p">,</span>
     <span class="n">scale_factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>
