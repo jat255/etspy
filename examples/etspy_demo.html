@@ -33,7 +33,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.4b4a8c74e2ff2ab5b.min.css?v=afa97f93" />
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.b83f2e057cd610c26.min.css?v=71bc7cdb" />
         <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
         <link rel="stylesheet" type="text/css" href="../_static/custom_css.css?v=3df925f6" />
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -808,6 +808,9 @@ $(document).ready(function(){
 <li><p><code class="docutils literal notranslate"><span class="pre">pyplot</span></code> from <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">hyperspy</span></code></p></li>
 </ul>
+<p>By default, Python sets the logging level to <code class="docutils literal notranslate"><span class="pre">&quot;WARNING&quot;</span></code>. If you would like to see additional informational output from ETSpy,
+you have to import the <code class="docutils literal notranslate"><span class="pre">logging</span></code> module, and run a <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.basicConfig"><code class="docutils literal notranslate"><span class="pre">basicConfig()</span></code></a>
+so the <code class="docutils literal notranslate"><span class="pre">&quot;INFO&quot;</span></code> level messages from ETSpy are shown.</p>
 <p>Finally, we also need to import the <code class="docutils literal notranslate"><span class="pre">datasets</span></code> module of <code class="docutils literal notranslate"><span class="pre">etspy</span></code> in order to load the simluated data we will be working with.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -818,6 +821,9 @@ $(document).ready(function(){
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">hyperspy.api</span> <span class="k">as</span> <span class="nn">hs</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;WARNING&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">etspy.api</span> <span class="k">as</span> <span class="nn">tomo</span>
 <span class="kn">from</span> <span class="nn">etspy</span> <span class="kn">import</span> <span class="n">datasets</span> <span class="k">as</span> <span class="n">ds</span>
