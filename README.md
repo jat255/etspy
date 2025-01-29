@@ -136,7 +136,7 @@ the [example Jupyter notebook](https://pages.nist.gov/etspy/examples/etspy_demo.
 
 ## Developer documentation
 
-See the [developer docs](https://pages.nist.gov/etspy/development) for more information.
+See the [developer docs](https://pages.nist.gov/etspy/development.html) for more information.
 
 ## Related projects
 
