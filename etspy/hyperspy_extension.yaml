@@ -17,3 +17,19 @@ signals:
         dtype: real
         lazy: False
         module: etspy.base
+    TomoShifts:
+        signal_type: "TomoShifts"
+        signal_type_aliases:
+            - Tomography stack shift values
+        signal_dimension: 1
+        dtype: real
+        lazy: False
+        module: etspy.base
+    TomoTilts:
+        signal_type: "TomoTilts"
+        signal_type_aliases:
+            - Tomography tilt values
+        signal_dimension: 1
+        dtype: real
+        lazy: False
+        module: etspy.base
